@@ -94,4 +94,4 @@ The API listens on <http://localhost:3000> by default.
 | `DATABASE_URL`| ✅        | —                        | Prisma pooled connection string   |
 | `DIRECT_URL`  | ✅        | —                        | Prisma direct connection string   |
 | `PORT`        | ❌        | `3000`                   | Port the server listens on        |
-| `CORS_ORIGIN` | ❌        | `http://localhost:5173`  | Allowed CORS origin               |
+| `CORS_ORIGIN` | ❌        | localhost + Codespaces   | Allowed CORS origin(s), `*`, or comma-separated list |

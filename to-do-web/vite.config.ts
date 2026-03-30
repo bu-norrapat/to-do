@@ -11,6 +11,15 @@ export default defineConfig({
     tailwindcss(),
     babel({ presets: [reactCompilerPreset()] })
   ],
+  server: {
+    proxy: {
+      '/api': {
+        target: 'http://127.0.0.1:3000',
+        changeOrigin: true,
+        rewrite: (requestPath) => requestPath.replace(/^\/api/, ''),
+      },
+    },
+  },
   resolve: {
     alias: {
       '@to-do-api': path.resolve(__dirname, '../to-do-api/src/index.ts'),

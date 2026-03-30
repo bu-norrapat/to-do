@@ -3,13 +3,23 @@ import { cors } from "@elysiajs/cors";
 import { todoRoutes } from "./routes/todos";
 
 const PORT = Number(process.env.PORT ?? 3000);
+const corsOrigin = process.env.CORS_ORIGIN?.trim();
+const defaultCorsOrigins = [
+  /^https:\/\/.*-\d+\.app\.github\.dev$/,
+  "http://localhost:5173",
+  "https://localhost:5173",
+];
+const resolvedCorsOrigins = corsOrigin
+  ? corsOrigin.split(",").map((origin) => origin.trim()).filter(Boolean)
+  : defaultCorsOrigins;
 
 const app = new Elysia()
   .use(
     cors({
-      origin: process.env.CORS_ORIGIN ?? "http://localhost:5173",
+      origin: corsOrigin === "*" ? true : resolvedCorsOrigins,
       methods: ["GET", "POST", "PATCH", "DELETE", "OPTIONS"],
-      allowedHeaders: ["Content-Type"],
+      allowedHeaders: true,
+      credentials: false,
     })
   )
 
